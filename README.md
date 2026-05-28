@@ -16,11 +16,10 @@
 Реализован гибкий механизм слабой связанности компонентов за счет автоматического внедрения зависимостей (DI)
 вместо ручного связывания объектов.
 
-classDiagram
+    classDiagram
     class Main {
         +main(String[] args)
     }
-
     class AppConfig {
         <<Configuration>>
     }
