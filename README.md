@@ -23,26 +23,29 @@ classDiagram
     class Main {
         +main(String[] args)
     }
+
     class AppConfig {
         <<Configuration>>
     }
+
     class MessageProvider {
         <<interface>>
         +getMessage() String
     }
+
     class MessageRenderer {
         <<interface>>
         +render() void
         +setMessageProvider(MessageProvider provider) void
         +getMessageProvider() MessageProvider
     }
+
     class CarServiceMessageProvider {
         <<Component>>
         -String fileName
         +init() void
         +getMessage() String
     }
-    note for CarServiceMessageProvider "@Value(filename)\n@PostConstruct init()"
 
     class OutMessageRenderer {
         <<Component>>
@@ -51,7 +54,6 @@ classDiagram
         +setMessageProvider(MessageProvider provider) void
         +getMessageProvider() MessageProvider
     }
-    note for OutMessageRenderer "@Autowired"
 
     class HtmlMessageRenderer {
         <<Component>>
@@ -60,14 +62,13 @@ classDiagram
         +setMessageProvider(MessageProvider provider) void
         +getMessageProvider() MessageProvider
     }
-    note for HtmlMessageRenderer "@Autowired"
 
     class ProfilingAspect {
         <<Aspect>>
         +profileCsvParsing(ProceedingJoinPoint jp) Object
     }
-    note for ProfilingAspect "@Around"
 
+    %% Чистые UML-связи
     Main ..> AppConfig
     Main ..> MessageRenderer
     
@@ -77,7 +78,7 @@ classDiagram
     AppConfig ..> ProfilingAspect
 
     CarServiceMessageProvider ..|> MessageProvider
-    dOutMessageRenderer ..|> MessageRenderer
+    OutMessageRenderer ..|> MessageRenderer
     HtmlMessageRenderer ..|> MessageRenderer
 
     HtmlMessageRenderer --> MessageProvider
