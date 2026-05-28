@@ -16,33 +16,33 @@
 Реализован гибкий механизм слабой связанности компонентов за счет автоматического внедрения зависимостей (DI)
 вместо ручного связывания объектов.
 
-    classDiagram
+Диаграмма Mermaid:
+
+```mermaid
+classDiagram
     class Main {
         +main(String[] args)
     }
     class AppConfig {
         <<Configuration>>
     }
-
     class MessageProvider {
         <<interface>>
         +getMessage() String
     }
-
     class MessageRenderer {
         <<interface>>
         +render() void
         +setMessageProvider(MessageProvider provider) void
         +getMessageProvider() MessageProvider
     }
-
     class CarServiceMessageProvider {
         <<Component>>
         -String fileName
         +init() void
         +getMessage() String
     }
-    note for CarServiceMessageProvider "filename\n@PostConstruct init()"
+    note for CarServiceMessageProvider "@Value(filename)\n@PostConstruct init()"
 
     class OutMessageRenderer {
         <<Component>>
@@ -68,7 +68,6 @@
     }
     note for ProfilingAspect "@Around"
 
-    %% Строгие UML-связи без лишнего текста
     Main ..> AppConfig
     Main ..> MessageRenderer
     
@@ -78,7 +77,7 @@
     AppConfig ..> ProfilingAspect
 
     CarServiceMessageProvider ..|> MessageProvider
-    OutMessageRenderer ..|> MessageRenderer
+    dOutMessageRenderer ..|> MessageRenderer
     HtmlMessageRenderer ..|> MessageRenderer
 
     HtmlMessageRenderer --> MessageProvider
